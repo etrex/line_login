@@ -46,18 +46,52 @@ You can override any parameter by passing it.
 auth_link = client.get_auth_link(scope: "", state: "state")
 ```
 
-### get access token
+### issue access token
 
 ```ruby
-code = "you can get code from redirect uri after user click the auth link"
-token = client.get_access_token(code)
+response = client.issue_access_token(code: "code")
+access_token = response["access_token"]
+id_token = response["id_token"]
+refresh_token = response["refresh_token"]
+scope = response["scope"]
 ```
 
+### verify access token
+
+```ruby
+response = client.verify_access_token(access_token: "access_token")
+scope = response["scope"]
+```
+
+
+### refresh access token
+
+```ruby
+response = client.refresh_access_token(refresh_token: "refresh_token")
+access_token = response["access_token"]
+refresh_token = response["refresh_token"]
+```
 
 ### revoke access token
 
+```ruby
+client.revoke_access_token(access_token: "access_token")
 ```
-response = client.revoke(token)
+
+### verify id token
+
+```ruby
+client.verify_id_token(id_token: "id_token")
+iss = response["iss"]
+sub = response["sub"]
+aud = response["aud"]
+exp = response["exp"]
+iat = response["iat"]
+nonce = response["nonce"]
+amr = response["amr"]
+name = response["name"]
+picture = response["picture"]
+email = response["email"]
 ```
 
 ## Testing
